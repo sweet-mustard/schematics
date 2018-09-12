@@ -1,0 +1,27 @@
+{
+  "name": "@schematics/sweet-mustard",
+  "version": "0.0.1",
+  "description": "A schematics",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && jasmine **/*_spec.js"
+  },
+  "keywords": [
+    "schematics"
+  ],
+  "author": "",
+  "license": "MIT",
+  "schematics": "./src/collection.json",
+  "dependencies": {
+    "@angular-devkit/core": "^0.8.1",
+    "@angular-devkit/schematics": "^0.8.1",
+    "@schematics/angular": "^0.8.1",
+    "@types/jasmine": "^2.6.0",
+    "@types/node": "^8.0.31",
+    "jasmine": "^2.8.0",
+    "rxjs": "^6.2.2",
+    "rxjs-compat": "^6.2.2",
+    "typescript": "^2.5.2"
+  },
+  "devDependencies": {}
+}

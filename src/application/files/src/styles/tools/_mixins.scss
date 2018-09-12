@@ -1,0 +1,6 @@
+@mixin fixed-img($width,$height,$object-fit) {
+    width: $width;
+    height: $height;
+
+    object-fit: $object-fit;
+  }

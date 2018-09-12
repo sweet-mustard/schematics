@@ -1,0 +1,56 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "sweet-mustard",
+  "schematics": {
+    "container": {
+      "description": "Creates a container",
+      "factory": "./container",
+      "schema": "./container/schema.json"
+    },
+    "sandbox": {
+      "description": "Creates a sandbox",
+      "factory": "./sandbox",
+      "schema": "./sandbox/schema.json"
+    },
+    "module": {
+      "description": "Creates a module",
+      "factory": "./module",
+      "schema": "./module/schema.json"
+    },
+    "ng-new": {
+      "factory": "./ng-new",
+      "schema": "./ng-new/schema.json",
+      "description": "Create an Angular workspace.",
+      "hidden": true
+    },
+    "workspace": {
+      "factory": "./workspace",
+      "schema": "./workspace/schema.json",
+      "description": "Create an Angular workspace.",
+      "hidden": true
+    },
+    "application": {
+      "aliases": ["app"],
+      "factory": "./application",
+      "schema": "./application/schema.json",
+      "description": "Create an Angular application."
+    },
+    "component": {
+      "aliases": ["c"],
+      "factory": "./component",
+      "description": "Create an Angular component.",
+      "schema": "./component/schema.json"
+    },
+    "angular-module": {
+      "aliases": ["m"],
+      "factory": "./angular-module",
+      "description": "Create an Angular module.",
+      "schema": "./angular-module/schema.json"
+    },"e2e": {
+      "factory": "./e2e",
+      "schema": "./e2e/schema.json",
+      "description": "Create an Angular e2e application.",
+      "hidden": true
+    }
+  }
+}
