@@ -61,6 +61,11 @@
       "type": "boolean",
       "description": "Generates sandbox files.",
       "default": true
+    },
+    "container": {
+      "type": "boolean",
+      "description": "Generates a container",
+      "default": true
     }
   },
   "required": []
