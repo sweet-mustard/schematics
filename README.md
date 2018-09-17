@@ -5,6 +5,7 @@ First clone the repository local.
 ## In the project folder:
 
 npm run build
+
 npm link
 
 ## In a new project
