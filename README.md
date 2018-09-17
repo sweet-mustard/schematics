@@ -1,17 +1,30 @@
-**How to use**
-clone repository
+# How to use
+
+First clone the repository local.
+
+## In the project folder:
+
 npm run build
 npm link
 
-ng new {uw naam} --collection=@schematics/sweet-mustard
-De rest werkt zoals een normaal angular project
+## In a new project
 
-Wil je de schematics gebruiken voor containers,modules,sandbox aan te maken?
+ng new name --collection=@schematics/sweet-mustard --moduleName=nameModule
+
+moduleName flag is for setting a demo module
+
+## In your angular project:
 
 npm link @schematics/sweet-mustard
 
-Container: ng g @schematics/sweet-mustard:container {uw naam/path}
-Modules : ng g @schematics/sweet-mustard:module {uw naam/path}
-Modules met routing: ng g @schematics/sweet-mustard:module {uw naam/path} --routing
-Modules met sandbox: ng g @schematics/sweet-mustard:module {uw naam/path} --sandbox
-Sandbox: ng g @schematics/sweet-mustard:sandbox {uw naam/path}
+### Generating a sandbox:
+
+ng g @schematics/sweet-mustard:sandbox name
+
+### Generating a container:
+
+ng g @schematics/sweet-mustard:container name
+
+### Generating a module, default with routing and sandbox:
+
+ng g @schematics/sweet-mustard:module name
