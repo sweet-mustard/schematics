@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsAngularWorkspace",
+  "id": "SchematicsAngularWorkspaceSweetMustard",
   "title": "Angular Workspace Options Schema",
   "type": "object",
   "properties": {
@@ -59,10 +59,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "name",
-            "email"
-          ]
+          "required": ["name", "email"]
         }
       ]
     },
@@ -72,8 +69,5 @@
       "visible": false
     }
   },
-  "required": [
-    "name",
-    "version"
-  ]
+  "required": ["name", "version"]
 }

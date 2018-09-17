@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsAngularModule",
+  "id": "SchematicsAngularModuleSweetMustard",
   "title": "Sweet mustard Module Options Schema",
   "type": "object",
   "properties": {
@@ -28,7 +28,7 @@
     "routing": {
       "type": "boolean",
       "description": "Generates a routing module.",
-      "default": false
+      "default": true
     },
     "routingScope": {
       "enum": ["Child", "Root"],
@@ -52,15 +52,15 @@
       "default": true,
       "visible": false
     },
-    "module":  {
+    "module": {
       "type": "string",
       "description": "Allows specification of the declaring module.",
       "alias": "m"
     },
-    "sandbox":{
+    "sandbox": {
       "type": "boolean",
       "description": "Generates sandbox files.",
-      "default": false
+      "default": true
     }
   },
   "required": []

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsAngularService",
+  "id": "SchematicsAngularServiceSweetMustard",
   "title": "Angular Service Options Schema",
   "type": "object",
   "properties": {

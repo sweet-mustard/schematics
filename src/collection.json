@@ -3,16 +3,19 @@
   "name": "sweet-mustard",
   "schematics": {
     "container": {
+      "aliases": ["swc"],
       "description": "Creates a container",
       "factory": "./container",
       "schema": "./container/schema.json"
     },
     "sandbox": {
+      "aliases": ["sws"],
       "description": "Creates a sandbox",
       "factory": "./sandbox",
       "schema": "./sandbox/schema.json"
     },
     "module": {
+      "aliases": ["swm"],
       "description": "Creates a module",
       "factory": "./module",
       "schema": "./module/schema.json"
@@ -35,18 +38,7 @@
       "schema": "./application/schema.json",
       "description": "Create an Angular application."
     },
-    "component": {
-      "aliases": ["c"],
-      "factory": "./component",
-      "description": "Create an Angular component.",
-      "schema": "./component/schema.json"
-    },
-    "angular-module": {
-      "aliases": ["m"],
-      "factory": "./angular-module",
-      "description": "Create an Angular module.",
-      "schema": "./angular-module/schema.json"
-    },"e2e": {
+    "e2e": {
       "factory": "./e2e",
       "schema": "./e2e/schema.json",
       "description": "Create an Angular e2e application.",

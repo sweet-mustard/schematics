@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsAngularApp",
+  "id": "SchematicsAngularAppSweetMustard",
   "title": "Angular Application Options Schema",
   "type": "object",
   "properties": {
@@ -66,6 +66,10 @@
       "type": "boolean",
       "default": false,
       "description": "Do not add dependencies to package.json."
+    },
+    "moduleName": {
+      "type": "string",
+      "description": "Sets the name of the demo module"
     }
   },
   "required": []

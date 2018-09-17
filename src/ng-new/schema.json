@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsAngularNgNew",
+  "id": "SchematicsAngularNgNewSweetMustard",
   "title": "Angular Ng New Options Schema",
   "type": "object",
   "properties": {
@@ -57,10 +57,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "name",
-            "email"
-          ]
+          "required": ["name", "email"]
         }
       ],
       "default": true
@@ -107,16 +104,18 @@
     "style": {
       "description": "The file extension to be used for style files.",
       "type": "string",
-      "default": "css"
+      "default": "scss"
     },
     "skipTests": {
       "description": "Skip creating spec files.",
       "type": "boolean",
       "default": false,
       "alias": "S"
+    },
+    "moduleName": {
+      "type": "string",
+      "description": "Sets the name of the demo module"
     }
   },
-  "required": [
-    "version"
-  ]
+  "required": ["version"]
 }
