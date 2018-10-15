@@ -1,7 +1,7 @@
 {
-  "name": "@schematics/sweet-mustard",
+  "name": "@sweet-mustard/schematics",
   "version": "0.0.1",
-  "description": "A schematics",
+  "description": "Sweet mustard schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine **/*_spec.js"
@@ -15,7 +15,7 @@
   "dependencies": {
     "@angular-devkit/core": "^0.8.1",
     "@angular-devkit/schematics": "^0.8.1",
-    "@schematics/angular": "^0.8.1",
+    "@schematics/angular": "^0.8.5",
     "@types/jasmine": "^2.6.0",
     "@types/node": "^8.0.31",
     "jasmine": "^2.8.0",

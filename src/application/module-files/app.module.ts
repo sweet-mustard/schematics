@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 <% if (routing) { %>
 import { AppRoutingModule } from './app-routing.module';<% } %>
-import { AppComponent } from './containers/root/app.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [

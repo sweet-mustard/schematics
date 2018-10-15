@@ -29,6 +29,7 @@
   ],
   "exclude": [
     "src/*/files/**/*",
-    "src/*/other-files/**/*"
+    "src/*/other-files/**/*",
+    "src/*/module-files/**/*"
   ]
 }
