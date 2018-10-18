@@ -43,6 +43,12 @@
       "schema": "./e2e/schema.json",
       "description": "Create an Angular e2e application.",
       "hidden": true
+    },
+    "jest": {
+      "factory": "./jest",
+      "schema": "./jest/schema.json",
+      "description": "Creates files so jest can properly work",
+      "hidden": true
     }
   }
 }

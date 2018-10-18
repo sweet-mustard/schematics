@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsJest",
+  "title": "Angular jest option scheme",
+  "type": "object",
+  "properties": {
+    "projectRoot": {
+      "description": "The root directory of the new application.",
+      "type": "string",
+      "visible": false
+    },
+    "relatedAppName": {
+      "description": "The name of the app being tested.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "relatedAppName"
+  ]
+}

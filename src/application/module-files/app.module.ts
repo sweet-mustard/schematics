@@ -2,17 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 <% if (routing) { %>
 import { AppRoutingModule } from './app-routing.module';<% } %>
-import { AppComponent } from './containers/root/app.component';
+import { RootContainer } from './containers/root/root.container';
 
 @NgModule({
   declarations: [
-    AppComponent
+    RootContainer
   ],
   imports: [<% if (!experimentalIvy) { %>
     BrowserModule<% if (routing) { %>,
     AppRoutingModule<% } %>
   <% } %>],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [RootContainer]
 })
 export class AppModule { }

@@ -26,10 +26,10 @@ import { Component } from '@angular/core';
      %><router-outlet></router-outlet><%
     } %>
   `,<% } else { %>
-  templateUrl: './app.component.html',<% } if(inlineStyle) { %>
+  templateUrl: './root.container.html',<% } if(inlineStyle) { %>
   styles: []<% } else { %>
-  styleUrls: ['./app.component.<%= styleext %>']<% } %>
+  styleUrls: ['./root.container.<%= styleext %>']<% } %>
 })
-export class AppComponent {
+export class RootContainer {
   title = '<%= name %>';
 }
