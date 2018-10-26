@@ -5,13 +5,15 @@
 
 ## How to use
 
-### Step 1: Setup a new project with the Sweet Mustard Schematics
+### Step 1: Install schematics
+
+Install our schematics globally with `npm install -g @sweet-mustard/schematics`.
+
+### Step 2: Setup a new project with the Sweet Mustard Schematics
 
 To generate a new project with the Sweet Mustard guidelines already in place, run `ng new name --collection=@sweet-mustard/schematics --moduleName=${nameModule}`. The moduleName flag is for defining your first module next to the app-module.
 
-### Step 2: Link the schematics to the project
-
-Link the schematics in your project by running `npm link @sweet-mustard/schematics` in the root of your project.
+### Step 3: Use the commands
 
 Now you have serveral commands at your disposal to generate new parts of your application:
 
@@ -29,7 +31,7 @@ After that, you are ready to test and contribute.
 
 1. *Build* your schematic local: `npm run build`
 2. *Link* your *local build*: `npm link`
-3. *Build* a new *project* (see step 1 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
+3. *Build* a new *project* (see step 2 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
 
 ### Unit Testing
 
