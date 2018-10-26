@@ -1,31 +1,35 @@
-# How to use
+# Sweet Angular Schematics
 
-First clone the repository local.
+> Angular Schematics with a Sweet Mustard flavour.
 
-## In the project folder:
 
-npm run build
+## How to use
 
-npm link
+### Step 1: Setup a new project with the Sweet Mustard Schematics
 
-## In a new project
+To generate a new project with the Sweet Mustard guidelines already in place, run `ng new name --collection=@sweet-mustard/schematics --moduleName=${nameModule}`. The moduleName flag is for defining your first module next to the app-module.
 
-ng new name --collection=@schematics/sweet-mustard --moduleName=nameModule
+### Step 2: Link the schematics to the project
 
-moduleName flag is for setting a demo module
+Link the schematics in your project by running `npm link @sweet-mustard/schematics` in the root of your project.
 
-## In your angular project:
+Now you have serveral commands at your disposal to generate new parts of your application:
 
-npm link @schematics/sweet-mustard
+- *Module (default with routing and sandbox):* `ng g @sweet-mustard/schematics:module ${name}`
+- *Sandbox:* `ng g @sweet-mustard/schematics:sandbox ${name}`
+- *Container:* `ng g @sweet-mustard/schematics:container ${name}`
 
-### Generating a sandbox:
 
-ng g @schematics/sweet-mustard:sandbox name
+## How to contribute
 
-### Generating a container:
+You can clone this repo and then go to the root-folder and run `npm install`. After that, you are ready to contribute.
 
-ng g @schematics/sweet-mustard:container name
+### Testing your modifications
 
-### Generating a module, default with routing and sandbox:
+1. Build your schematic local: `npm run build`
+2. Link your local build: `npm link`
+3. Link the schematics to your demo project: `npm link @sweet-mustard/schematics`
 
-ng g @schematics/sweet-mustard:module name
+### Unit Testing
+
+`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
