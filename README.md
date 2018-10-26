@@ -22,13 +22,14 @@ Now you have serveral commands at your disposal to generate new parts of your ap
 
 ## How to contribute
 
-You can clone this repo and then go to the root-folder and run `npm install`. After that, you are ready to contribute.
+Begin by cloning this repo, go to the root-folder and run `npm install`.
+After that, you are ready to test and contribute.
 
 ### Testing your modifications
 
 1. *Build* your schematic local: `npm run build`
 2. *Link* your *local build*: `npm link`
-3. *Link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
+3. *Build* a new *project* (see step 1 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
 
 ### Unit Testing
 
