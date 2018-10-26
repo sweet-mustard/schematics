@@ -26,9 +26,9 @@ You can clone this repo and then go to the root-folder and run `npm install`. Af
 
 ### Testing your modifications
 
-1. Build your schematic local: `npm run build`
-2. Link your local build: `npm link`
-3. Link the schematics to your demo project: `npm link @sweet-mustard/schematics`
+1. *Build* your schematic local: `npm run build`
+2. *Link* your *local build*: `npm link`
+3. *Link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
 
 ### Unit Testing
 
