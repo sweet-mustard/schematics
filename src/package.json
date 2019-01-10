@@ -1,0 +1,16 @@
+{
+  "name": "@sweet-mustard/schematics",
+  "version": "1.0.0",
+  "description": "Sweet mustard schematics",
+  "keywords": [
+    "schematics"
+  ],
+  "author": "",
+  "license": "MIT",
+  "schematics": "./collection.json",
+  "peerDependencies": {
+    "@schematics/angular": "^7.1.2",
+    "@angular-devkit/core": "^7.1.2",
+    "@angular-devkit/schematics": "^7.1.2"
+  }
+}

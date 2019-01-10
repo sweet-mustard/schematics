@@ -54,7 +54,7 @@
     "style": {
       "description": "The file extension to be used for style files.",
       "type": "string",
-      "default": "css"
+      "default": "scss"
     },
     "skipTests": {
       "description": "Skip creating spec files.",

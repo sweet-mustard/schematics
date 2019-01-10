@@ -1,4 +1,4 @@
 export interface Schema {
-    projectRoot?: string;
+    projectRoot: string;
     relatedAppName: string;
 }
