@@ -87,7 +87,10 @@
     "version": {
       "type": "string",
       "description": "The version of the Angular CLI to use.",
-      "visible": false
+      "visible": false,
+      "$default": {
+        "$source": "ng-cli-version"
+      }
     },
     "routing": {
       "type": "boolean",
@@ -104,6 +107,7 @@
     "style": {
       "description": "The file extension to be used for style files.",
       "type": "string",
+      "visible": false,
       "default": "scss"
     },
     "skipTests": {
@@ -111,6 +115,11 @@
       "type": "boolean",
       "default": false,
       "alias": "S"
+    },
+    "createApplication": {
+      "description": "When true (the default), creates a new initial app project in the new workspace.",
+      "type": "boolean",
+      "default": true
     },
     "moduleName": {
       "type": "string",

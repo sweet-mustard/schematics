@@ -1,24 +1,51 @@
 {
   "compilerOptions": {
-    "baseUrl": "tsconfig",
-    "lib": ["es2018", "dom"],
     "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "rootDir": "src/",
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "outDir": "./dist",
+    "rootDir": ".",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "sourceMap": true,
+    "inlineSourceMap": true,
+    "sourceRoot": ".",
+    "inlineSources": true,
     "strictNullChecks": true,
-    "target": "es6",
-    "types": ["jasmine", "node"]
+    "target": "es2017",
+    "lib": ["es2017"],
+    "paths": {
+      "@angular-devkit/core": [ "@angular_devkit/core/src/index" ],
+      "@angular-devkit/core/node": [ "@angular_devkit/core/node/index" ],
+      "@angular-devkit/core/node/testing": [ "@angular_devkit/core/node/testing/index" ],
+      "@angular-devkit/schematics": [ "@angular_devkit/schematics/src/index" ],
+      "@angular-devkit/schematics/tasks": [ "@angular_devkit/schematics/tasks/index" ],
+      "@angular-devkit/schematics/tasks/node": [ "@angular_devkit/schematics/tasks/node/index" ],
+      "@angular-devkit/schematics/tools": [ "@angular_devkit/schematics/tools/index" ],
+      "@angular-devkit/schematics/testing": [ "@angular_devkit/schematics/testing/index" ],
+      "@angular-devkit/build-optimizer": [ "@angular_devkit/build_optimizer/src/index" ],
+      "@angular-devkit/architect": [ "@angular_devkit/architect/src/index" ],
+      "@angular-devkit/architect/testing": [ "@angular_devkit/architect/testing/index" ],
+      "@angular-devkit/build-webpack": [ "@angular_devkit/build_webpack/src/index" ],
+      "@schematics/angular": [ "@schematics/angular/index" ]
+    }
+  },
+  "bazelOptions": {
+    "suppressTsconfigOverrideWarnings": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/*/files/**/*", "src/*/module-files/**/*", "src/*/other-files/**/*"]
+  "exclude": [
+    "bazel-*/**/*",
+    "dist/**/*",
+    "node_modules/**/*",
+    "packages/schematics/*/*/*files/**/*",
+    "tools/**/*"
+  ]
 }
