@@ -5,7 +5,7 @@ import {Schema as ApplicationOptions} from "../application/schema";
 
 describe('Jest schematic', () => {
     const schematicRunner = new SchematicTestRunner(
-        '@sweet/schematics',
+        '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
     );
 

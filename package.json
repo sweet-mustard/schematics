@@ -1,12 +1,13 @@
 {
-  "name": "@sweet/schematics",
+  "name": "@sweet-mustard/schematics",
   "version": "1.0.0",
   "description": "> Angular Schematics with a Sweet Mustard flavour.",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --watch",
     "test-ci": "jest --coverage --bail",
-    "publish": "yarn run test-ci && bazel run src:npm_package.pack"
+    "pack": "yarn run test-ci && bazel run src:npm_package.pack",
+    "publish": "yarn run test-ci && bazel run src:npm_package.publish"
   },
   "devDependencies": {
     "@bazel/bazel": "^0.19.1",

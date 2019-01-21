@@ -6,7 +6,7 @@ import { Schema as ContainerOptions } from './schema';
 
 describe('Component Schematic', () => {
     const schematicRunner = new SchematicTestRunner(
-        '@sweet/schematics',
+        '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
     );
     const defaultOptions: ContainerOptions = {

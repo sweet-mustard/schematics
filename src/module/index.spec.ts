@@ -5,7 +5,7 @@ import { Schema as ModuleOptions } from './schema';
 
 describe('Module Schematic', () => {
     const schematicRunner = new SchematicTestRunner(
-        '@sweet/schematics',
+        '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
     );
     const defaultOptions: ModuleOptions = {

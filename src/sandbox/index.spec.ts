@@ -5,7 +5,7 @@ import { Schema as SandboxOptions } from './schema';
 
 describe('Service Schematic', () => {
     const schematicRunner = new SchematicTestRunner(
-        '@sweet/schematics',
+        '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
     );
     const defaultOptions: SandboxOptions = {

@@ -5,7 +5,7 @@
 
 ### Step 1: Install
 
-Install our schematics globally with `npm install -g @sweet/schematics`.
+Install our schematics globally with `npm install -g @sweet-mustard/schematics`.
 
 ### Step 2: Setup a new project
 
@@ -28,5 +28,5 @@ After that, you are ready to contribute.
 
 1. *Install* dependencies globally: `npm install -g @angular-devkit/core @angular-devkit/schematics @schematics/angular typescript`
 2. *Build* your schematic local: `npm run build`
-3. *Link* your *local build*: `npm install -g sweet-schematics-${version}.tgz`
-4. *Build* a new *project* (see step 1 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet/schematics`
+3. *Link* your *local build*: `npm install -g sweet-mustard-schematics-${version}.tgz`
+4. *Build* a new *project* (see step 1 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
