@@ -6,8 +6,8 @@ ts_library(
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
-                "**/*_spec.ts",
-                "**/*_spec_large.ts",
+                "**/*.spec.ts",
+                "**/*.spec_large.ts",
                 "*/files/**/*.ts",
                 "*/other-files/**/*.ts",
                 "*/module-files/**/*.ts",

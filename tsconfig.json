@@ -21,6 +21,7 @@
     "strictNullChecks": true,
     "target": "es2017",
     "lib": ["es2017"],
+    "baseUrl": "",
     "paths": {
       "@angular-devkit/core": [ "@angular_devkit/core/src/index" ],
       "@angular-devkit/core/node": [ "@angular_devkit/core/node/index" ],

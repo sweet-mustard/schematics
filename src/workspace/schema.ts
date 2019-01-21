@@ -1,6 +1,6 @@
 export interface Schema {
     name: string;
-    newProjectRoot: string;
+    newProjectRoot?: string;
     skipInstall?: boolean;
     linkCli?: boolean;
     skipGit?: boolean;

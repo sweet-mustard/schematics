@@ -23,8 +23,8 @@
     "@angular/platform-browser-dynamic": "<%= experimentalAngularNext ? 'next' : latestVersions.Angular %>",
     "@angular/router": "<%= experimentalAngularNext ? 'next' : latestVersions.Angular %>",
     "core-js": "^2.5.4",
-    "rxjs": "^6.2.2",
-    "rxjs-compat": "^6.2.2",
+    "rxjs": "<%= latestVersions.RxJs %>",
+    "rxjs-compat": "<%= latestVersions.RxJs %>",
     "zone.js": "<%= latestVersions.ZoneJs %>"
   },
   "devDependencies": {
