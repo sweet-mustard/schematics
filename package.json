@@ -1,15 +1,19 @@
 {
-  "name": "schematics-sweet-mustard",
+  "name": "@sweet/schematics",
   "version": "1.0.0",
   "description": "> Angular Schematics with a Sweet Mustard flavour.",
   "main": "index.js",
   "scripts": {
-    "publish": "bazel run src:npm_package.pack"
+    "test": "jest --coverage --watch",
+    "test-ci": "jest --coverage --bail",
+    "publish": "yarn run test-ci && bazel run src:npm_package.pack"
   },
   "devDependencies": {
     "@bazel/bazel": "^0.19.1",
     "@bazel/typescript": "0.20.3",
     "@schematics/angular": "^7.1.2",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "typescript": "~3.1.1"
   },
   "repository": {
@@ -20,6 +24,32 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/sweetmustard/schematics#readme",
   "dependencies": {
+    "@types/jest": "^23.3.12",
     "@types/node": "^10.12.12"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "<rootDir>/tsconfig.spec.json"
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "coverageReporters": [
+      "lcov"
+    ],
+    "transform": {
+      "\\.(ts)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.(ts|js)?(x)",
+      "**/?(*.)+(spec|test).(ts|js)?(x)"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/.*(files)"
+    ]
   }
 }
