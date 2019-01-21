@@ -1,4 +1,23 @@
-# Sweet Angular schematics
+# Sweet schematics
+> Angular Schematics with a Sweet Mustard flavour.
+
+## How to use
+
+### Step 1: Install
+
+Install our schematics globally with `npm install -g @sweet/schematics`.
+
+### Step 2: Setup a new project
+
+To generate a new project with the Sweet Mustard guidelines already in place, run `ng new name --collection=@sweet/schematics --moduleName=${nameModule}`. The moduleName flag is for defining your first module next to the app-module.
+
+### Step 3: Use
+
+Now you have several commands at your disposal to generate new parts of your application:
+
+- *Module (default with routing and sandbox):* `ng g module ${name}` or `ng g swm ${name}`
+- *Sandbox:* `ng g sandbox ${name}` or `ng g sws ${name}`
+- *Container:* `ng g container ${name}` or `ng g swc ${name}`
 
 ## How to contribute
 
@@ -9,18 +28,5 @@ After that, you are ready to contribute.
 
 1. *Install* dependencies globally: `npm install -g @angular-devkit/core @angular-devkit/schematics @schematics/angular typescript`
 2. *Build* your schematic local: `npm run build`
-3. *Link* your *local build*: `npm install -g sweet-mustard-schematics-${version}.tgz`
-4. *Build* a new *project* (see step 1 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
-
-## How to use
-### Step 1: Setup a new project
-
-To generate a new project with the Sweet Mustard guidelines already in place, run `ng new name --collection=@sweet-mustard/schematics --moduleName=${nameModule}`. The moduleName flag is for defining your first module next to the app-module.
-
-### Step 2: Use
-
-Now you have serveral commands at your disposal to generate new parts of your application:
-
-- *Module (default with routing and sandbox):* `ng g module ${name}`
-- *Sandbox:* `ng g andbox ${name}`
-- *Container:* `ng g container ${name}`
+3. *Link* your *local build*: `npm install -g sweet-schematics-${version}.tgz`
+4. *Build* a new *project* (see step 1 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet/schematics`
