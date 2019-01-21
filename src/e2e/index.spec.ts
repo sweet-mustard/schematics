@@ -4,7 +4,7 @@ import { Schema as E2eOptions } from './schema';
 
 describe('Application Schematic', () => {
     const schematicRunner = new SchematicTestRunner(
-        '@sweet/schematics',
+        '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
     );
 

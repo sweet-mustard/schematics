@@ -4,7 +4,7 @@ import { Schema as NgNewOptions } from './schema';
 
 describe('Ng New Schematic', () => {
     const schematicRunner = new SchematicTestRunner(
-        '@sweet/schematics',
+        '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
     );
     const defaultOptions: NgNewOptions = {
