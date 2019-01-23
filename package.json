@@ -23,7 +23,7 @@
   },
   "author": "",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/sweetmustard/schematics#readme",
+  "homepage": "https://github.com/sweet-mustard/schematics",
   "dependencies": {
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.12"
