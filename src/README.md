@@ -9,7 +9,7 @@ Install our schematics globally with `npm install -g @sweet-mustard/schematics`.
 
 ### Step 2: Setup a new project
 
-To generate a new project with the Sweet Mustard guidelines already in place, run `ng new name --collection=@sweet/schematics --moduleName=${nameModule}`. The moduleName flag is for defining your first module next to the app-module.
+To generate a new project with the Sweet Mustard guidelines already in place, run `ng new name --collection=@sweet-mustard/schematics --moduleName=${nameModule}`. The moduleName flag is for defining your first module next to the app-module.
 
 ### Step 3: Use
 
