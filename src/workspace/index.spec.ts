@@ -38,7 +38,7 @@ describe('Workspace Schematic', () => {
     it('should set the CLI version in package.json', () => {
         const tree = schematicRunner.runSchematic('workspace', defaultOptions);
         const pkg = JSON.parse(tree.readContent('/package.json'));
-        expect(pkg.devDependencies['@angular/cli']).toMatch('6.2.1');
+        expect(pkg.devDependencies['@angular/cli']).toMatch(latestVersions.Angular);
     });
 
     it('should use the latest known versions in package.json', () => {
