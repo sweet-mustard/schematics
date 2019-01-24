@@ -3,7 +3,7 @@ import { Schema as ApplicationOptions } from '../application/schema';
 import { Schema as WorkspaceOptions } from '../workspace/schema';
 import { Schema as SandboxOptions } from './schema';
 
-describe('Service Schematic', () => {
+describe('Sandbox Schematic', () => {
     const schematicRunner = new SchematicTestRunner(
         '@sweet-mustard/schematics',
         require.resolve('../collection.json'),
