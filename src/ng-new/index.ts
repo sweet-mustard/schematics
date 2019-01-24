@@ -44,7 +44,8 @@ export default function (options: NgNewOptions): Rule {
         prefix: options.prefix,
         viewEncapsulation: options.viewEncapsulation,
         routing: options.routing,
-        style: options.style
+        style: options.style,
+        moduleName: options.moduleName ? options.moduleName : undefined
     };
 
     return chain([
