@@ -11,13 +11,13 @@ import {
   move,
   noop,
   template,
-  url,
+  url
 } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import {
   addDeclarationToModule,
   addEntryComponentToModule,
-  addExportToModule,
+  addExportToModule
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { buildRelativePath, findModuleFromOptions } from '@schematics/angular/utility/find-module';
@@ -45,16 +45,14 @@ function addDeclarationToNgModule(options: ComponentOptions): Rule {
     const modulePath = options.module;
     const source = readIntoSourceFile(host, modulePath);
 
-    const componentPath = `/${options.path}/`
-                          + (options.flat ? '' : strings.dasherize(options.name) + '-container/')
-                          + strings.dasherize(options.name)
-                          + '.container';
-    const relativePath = buildRelativePath(modulePath, componentPath);
+    const containerPath =
+      `/${options.path}/` +
+      (options.flat ? '' : strings.dasherize(options.name) + '/') +
+      strings.dasherize(options.name) +
+      '.container';
+    const relativePath = buildRelativePath(modulePath, containerPath);
     const classifiedName = strings.classify(`${options.name}Container`);
-    const declarationChanges = addDeclarationToModule(source,
-                                                      modulePath,
-                                                      classifiedName,
-                                                      relativePath);
+    const declarationChanges = addDeclarationToModule(source, modulePath, classifiedName, relativePath);
 
     const declarationRecorder = host.beginUpdate(modulePath);
     for (const change of declarationChanges) {
@@ -68,9 +66,12 @@ function addDeclarationToNgModule(options: ComponentOptions): Rule {
       const source = readIntoSourceFile(host, modulePath);
 
       const exportRecorder = host.beginUpdate(modulePath);
-      const exportChanges = addExportToModule(source, modulePath,
-                                              strings.classify(`${options.name}Container`),
-                                              relativePath);
+      const exportChanges = addExportToModule(
+        source,
+        modulePath,
+        strings.classify(`${options.name}Container`),
+        relativePath
+      );
 
       for (const change of exportChanges) {
         if (change instanceof InsertChange) {
@@ -85,9 +86,11 @@ function addDeclarationToNgModule(options: ComponentOptions): Rule {
 
       const entryComponentRecorder = host.beginUpdate(modulePath);
       const entryComponentChanges = addEntryComponentToModule(
-        source, modulePath,
+        source,
+        modulePath,
         strings.classify(`${options.name}Container`),
-        relativePath);
+        relativePath
+      );
 
       for (const change of entryComponentChanges) {
         if (change instanceof InsertChange) {
@@ -97,11 +100,9 @@ function addDeclarationToNgModule(options: ComponentOptions): Rule {
       host.commitUpdate(entryComponentRecorder);
     }
 
-
     return host;
   };
 }
-
 
 function buildSelector(options: ComponentOptions, projectPrefix: string) {
   let selector = strings.dasherize(options.name);
@@ -113,7 +114,6 @@ function buildSelector(options: ComponentOptions, projectPrefix: string) {
 
   return selector;
 }
-
 
 export default function(options: ComponentOptions): Rule {
   return (host: Tree) => {
@@ -142,17 +142,12 @@ export default function(options: ComponentOptions): Rule {
       options.inlineTemplate ? filter(path => !path.endsWith('.html')) : noop(),
       template({
         ...strings,
-        'if-flat': (s: string) => options.flat ? '' : s,
-        ...options,
+        'if-flat': (s: string) => (options.flat ? '' : s),
+        ...options
       }),
-      move(parsedPath.path),
+      move(parsedPath.path)
     ]);
 
-    return chain([
-      branchAndMerge(chain([
-        addDeclarationToNgModule(options),
-        mergeWith(templateSource),
-      ])),
-    ]);
+    return chain([branchAndMerge(chain([addDeclarationToNgModule(options), mergeWith(templateSource)]))]);
   };
 }
