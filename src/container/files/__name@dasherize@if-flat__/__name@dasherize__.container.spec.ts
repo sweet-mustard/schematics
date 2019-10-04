@@ -6,12 +6,12 @@ describe('<%= classify(name) %>Container', () => {
   let container: <%= classify(name) %>Container;
   let fixture: ComponentFixture<<%= classify(name) %>Container>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ <%= classify(name) %>Container ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(<%= classify(name) %>Container);
