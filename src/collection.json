@@ -1,6 +1,12 @@
 {
   "extends": ["@schematics/angular"],
   "schematics": {
+    "component": {
+      "aliases": ["swcomp"],
+      "description": "Creates a component",
+      "factory": "./component",
+      "schema": "./component/schema.json"
+    },
     "container": {
       "aliases": ["swc"],
       "description": "Creates a container",
