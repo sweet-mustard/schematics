@@ -84,7 +84,7 @@ export default function (options: ModuleOptions): Rule {
     const templateSource = apply(url('./files'), [
       options.routing ? noop() : filter(path => !path.endsWith('-routing.module.ts')),
       options.spec ? noop() : filter(path => !path.endsWith('.spec.ts')),
-      options.sandbox ? noop() : filter(path => !path.endsWith('.sandbox.ts') && !path.endsWith('.sandbox.spec.Ts')),
+      options.sandbox ? noop() : filter(path => !path.endsWith('.sandbox.ts') && !path.endsWith('.sandbox.spec.ts')),
       template({
         ...strings,
         'if-flat': (s: string) => options.flat ? '' : s,
