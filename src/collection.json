@@ -1,6 +1,12 @@
 {
   "extends": ["@schematics/angular"],
   "schematics": {
+    "application": {
+      "aliases": ["app"],
+      "factory": "./application",
+      "schema": "./application/schema.json",
+      "description": "Create an Angular application."
+    },
     "component": {
       "aliases": ["swcomp"],
       "description": "Creates a component",
@@ -13,11 +19,11 @@
       "factory": "./container",
       "schema": "./container/schema.json"
     },
-    "sandbox": {
-      "aliases": ["sws"],
-      "description": "Creates a sandbox",
-      "factory": "./sandbox",
-      "schema": "./sandbox/schema.json"
+    "jest": {
+      "factory": "./jest",
+      "schema": "./jest/schema.json",
+      "description": "Creates files so jest can properly work",
+      "hidden": true
     },
     "module": {
       "aliases": ["swm"],
@@ -31,28 +37,22 @@
       "description": "Create an Angular workspace.",
       "hidden": true
     },
+    "sandbox": {
+      "aliases": ["sws"],
+      "description": "Creates a sandbox",
+      "factory": "./sandbox",
+      "schema": "./sandbox/schema.json"
+    },
     "workspace": {
       "factory": "./workspace",
       "schema": "./workspace/schema.json",
       "description": "Create an Angular workspace.",
       "hidden": true
     },
-    "application": {
-      "aliases": ["app"],
-      "factory": "./application",
-      "schema": "./application/schema.json",
-      "description": "Create an Angular application."
-    },
     "e2e": {
       "factory": "./e2e",
       "schema": "./e2e/schema.json",
       "description": "Create an Angular e2e application.",
-      "hidden": true
-    },
-    "jest": {
-      "factory": "./jest",
-      "schema": "./jest/schema.json",
-      "description": "Creates files so jest can properly work",
       "hidden": true
     }
   }
