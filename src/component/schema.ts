@@ -8,11 +8,15 @@ export interface Schema {
     changeDetection?: string;
     prefix?: string;
     styleext?: string;
+    style?: string;
     spec?: boolean;
+    skipTests?: boolean;
     flat?: boolean;
     skipImport?: boolean;
     selector?: string;
+    skipSelector?: boolean;
     module?: string;
     export?: boolean;
     entryComponent?: boolean;
+    lintFix?: boolean;
 }
