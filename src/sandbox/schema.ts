@@ -4,5 +4,6 @@ export interface Schema {
     project?: string;
     flat?: boolean;
     spec?: boolean;
+    skipTests?: boolean;
     lintFix?: boolean;
 }
