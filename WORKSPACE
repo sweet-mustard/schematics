@@ -1,35 +1,63 @@
-http_archive(
-    name = "build_bazel_rules_typescript",
-    url = "https://github.com/bazelbuild/rules_typescript/archive/0.20.3.zip",
-    strip_prefix = "rules_typescript-0.20.3",
+workspace(
+    name = "Sweet mustard schematics",
+    managed_directories = {"@npm": ["node_modules"]},
 )
 
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 http_archive(
-    name = "angular",
-    url = "https://github.com/angular/angular/archive/7.0.1.zip",
-    strip_prefix = "angular-7.0.1",
+    name = "build_bazel_rules_nodejs",
+    sha256 = "da217044d24abd16667324626a33581f3eaccabf80985b2688d6a08ed2f864be",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.37.1/rules_nodejs-0.37.1.tar.gz"],
 )
 
-load("@angular//packages/bazel:package.bzl", "rules_angular_dependencies")
-rules_angular_dependencies()
+# Check the bazel version and download npm dependencies
+load("@build_bazel_rules_nodejs//:defs.bzl", "check_bazel_version", "check_rules_nodejs_version", "node_repositories", "yarn_install")
 
-load("@angular//:index.bzl", "ng_setup_workspace")
-ng_setup_workspace()
+# Bazel version must be at least the following version because:
+#   - 0.26.0 managed_directories feature added which is required for nodejs rules 0.30.0
+#   - 0.27.0 has a fix for managed_directories after `rm -rf node_modules`
+check_bazel_version(
+    message = """
+You no longer need to install Bazel on your machine.
+Angular has a dependency on the @bazel/bazel package which supplies it.
+Try running `yarn bazel` instead.
+    (If you did run that, check that you've got a fresh `yarn install`)
+""",
+    minimum_bazel_version = "0.27.0",
+)
 
-load("@build_bazel_rules_typescript//:package.bzl", "rules_typescript_dependencies")
-rules_typescript_dependencies()
+check_rules_nodejs_version(minimum_version_string = "0.34.0")
 
-load("@build_bazel_rules_nodejs//:package.bzl", "rules_nodejs_dependencies")
-rules_nodejs_dependencies()
-
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
-node_repositories()
+node_repositories(
+    node_repositories = {
+        "10.16.0-darwin_amd64": ("node-v10.16.0-darwin-x64.tar.gz", "node-v10.16.0-darwin-x64", "6c009df1b724026d84ae9a838c5b382662e30f6c5563a0995532f2bece39fa9c"),
+        "10.16.0-linux_amd64": ("node-v10.16.0-linux-x64.tar.xz", "node-v10.16.0-linux-x64", "1827f5b99084740234de0c506f4dd2202a696ed60f76059696747c34339b9d48"),
+        "10.16.0-windows_amd64": ("node-v10.16.0-win-x64.zip", "node-v10.16.0-win-x64", "aa22cb357f0fb54ccbc06b19b60e37eefea5d7dd9940912675d3ed988bf9a059"),
+    },
+    node_version = "10.16.0",
+    package_json = ["//:package.json"],
+    yarn_repositories = {
+        "1.17.3": ("yarn-v1.17.3.tar.gz", "yarn-v1.17.3", "e3835194409f1b3afa1c62ca82f561f1c29d26580c9e220c36866317e043c6f3"),
+    },
+    yarn_version = "1.17.3",
+)
 
 yarn_install(
-  name = "npm",
-  package_json = "//:package.json",
-  yarn_lock = "//:yarn.lock",
+    name = "npm",
+    data = [
+        "//:tools/yarn/check-yarn.js",
+    ],
+    package_json = "//:package.json",
+    symlink_node_modules = False,
+    yarn_lock = "//:yarn.lock",
 )
 
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+
+install_bazel_dependencies()
+
+load("@npm_bazel_typescript//:defs.bzl", "ts_setup_workspace")
+
 ts_setup_workspace()
+
