@@ -28,42 +28,42 @@ describe('Sandbox Schematic', () => {
         skipPackageJson: false,
     };
     let appTree: UnitTestTree;
-    beforeEach(() => {
-        appTree = schematicRunner.runSchematic('workspace', workspaceOptions);
-        appTree = schematicRunner.runSchematic('application', appOptions, appTree);
+    beforeEach(async () => {
+        appTree = await schematicRunner.runSchematicAsync('workspace', workspaceOptions).toPromise();
+        appTree = await schematicRunner.runSchematicAsync('application', appOptions, appTree).toPromise();
     });
 
-    it('should create a service', () => {
+    it('should create a service', async () => {
         const options = { ...defaultOptions };
 
-        const tree = schematicRunner.runSchematic('sandbox', options, appTree);
+        const tree = await schematicRunner.runSchematicAsync('sandbox', options, appTree).toPromise();
         const files = tree.files;
         expect(files).toContain('/projects/bar/src/app/foo/foo.sandbox.spec.ts');
         expect(files).toContain('/projects/bar/src/app/foo/foo.sandbox.ts');
     });
 
-    it('service should be tree-shakeable', () => {
+    it('service should be tree-shakeable', async () => {
         const options = { ...defaultOptions};
 
-        const tree = schematicRunner.runSchematic('sandbox', options, appTree);
+        const tree = await schematicRunner.runSchematicAsync('sandbox', options, appTree).toPromise();
         const content = tree.readContent('/projects/bar/src/app/foo/foo.sandbox.ts');
         expect(content).toMatch(/providedIn: 'root'/);
     });
 
-    it('should respect the spec flag', () => {
-        const options = { ...defaultOptions, spec: false, name: 'foo-sandbox' };
+    it('should respect the spec flag', async () => {
+        const options = { ...defaultOptions, skipTests: true, name: 'foo-sandbox' };
 
-        const tree = schematicRunner.runSchematic('sandbox', options, appTree);
+        const tree = await schematicRunner.runSchematicAsync('sandbox', options, appTree).toPromise();
         const files = tree.files;
         expect(files).toContain('/projects/bar/src/app/foo-sandbox/foo-sandbox.sandbox.ts');
         expect(files).not.toContain('/projects/bar/src/app/foo-sandbox/foo-sandbox.sandbox.spec.ts');
     });
 
-    it('should respect the sourceRoot value', () => {
+    it('should respect the sourceRoot value', async () => {
         const config = JSON.parse(appTree.readContent('/angular.json'));
         config.projects.bar.sourceRoot = 'projects/bar/custom';
         appTree.overwrite('/angular.json', JSON.stringify(config, null, 2));
-        appTree = schematicRunner.runSchematic('sandbox', defaultOptions, appTree);
+        appTree = await schematicRunner.runSchematicAsync('sandbox', defaultOptions, appTree).toPromise();;
         expect(appTree.files).toContain('/projects/bar/custom/app/foo/foo.sandbox.ts');
     });
 });

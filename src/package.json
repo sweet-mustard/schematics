@@ -1,6 +1,6 @@
 {
   "name": "@sweet-mustard/schematics",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Sweet mustard schematics",
   "keywords": [
     "schematics",
@@ -16,9 +16,9 @@
   },
   "homepage": "https://github.com/sweet-mustard/schematics",
   "schematics": "./collection.json",
-  "peerDependencies": {
-    "@schematics/angular": "^7.1.2",
-    "@angular-devkit/core": "^7.1.2",
-    "@angular-devkit/schematics": "^7.1.2"
+  "dependencies": {
+    "@schematics/angular": "^8.3.20",
+    "@angular-devkit/core": "^8.3.20",
+    "@angular-devkit/schematics": "8.3.20"
   }
 }
