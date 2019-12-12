@@ -1,0 +1,44 @@
+{
+  "name": "<%= utils.dasherize(name) %>",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test --watch",
+    "test-once": "ng test --coverage",
+    "test-ci": "ng test --coverage --bail",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "<%= latestVersions.Angular %>",
+    "@angular/common": "<%= latestVersions.Angular %>",
+    "@angular/compiler": "<%= latestVersions.Angular %>",
+    "@angular/core": "<%= latestVersions.Angular %>",
+    "@angular/forms": "<%= latestVersions.Angular %>",
+    "@angular/platform-browser": "<%= latestVersions.Angular %>",
+    "@angular/platform-browser-dynamic": "<%= latestVersions.Angular %>",
+    "@angular/router": "<%= latestVersions.Angular %>",
+    "rxjs": "<%= latestVersions.RxJs %>",
+    "tslib": "<%= latestVersions.TsLib %>",
+    "zone.js": "<%= latestVersions.ZoneJs %>"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "~8.3.2",
+    "@angular/cli": "~8.3.20",
+    "@angular/compiler-cli": "<%= latestVersions.Angular %>",
+    "@angular/language-service": "<%= latestVersions.Angular %>",
+    "@types/jest": "^24.0.23",
+    "@types/node": "~8.9.4",
+    "codelyzer": "~5.0.0",
+    "jest": "^24.9.0",
+    "protractor": "~5.4.0",
+    "ts-jest": "^24.1.0",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.15.0",
+    "prettier": "^1.18.2",
+    "typescript": "<%= latestVersions.TypeScript %>"
+  }
+}

@@ -1,27 +1,52 @@
-import { normalize, strings, path } from '@angular-devkit/core';
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { normalize, Path, strings } from '@angular-devkit/core';
 import {
-  Rule,
-  SchematicsException,
-  Tree,
   apply,
-  branchAndMerge,
+  applyTemplates,
   chain,
   filter,
   mergeWith,
   move,
   noop,
-  template,
-  url,
+  Rule,
   schematic,
+  SchematicsException,
+  Tree,
+  url
 } from '@angular-devkit/schematics';
-import * as ts from 'typescript';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
+import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import { addImportToModule, addRouteDeclarationToModule } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { buildRelativePath, findModuleFromOptions } from '@schematics/angular/utility/find-module';
+import {
+  buildRelativePath,
+  findModuleFromOptions,
+  MODULE_EXT,
+  ROUTING_MODULE_EXT
+} from '@schematics/angular/utility/find-module';
 import { parseName } from '@schematics/angular/utility/parse-name';
-import { buildDefaultPath, getProject } from '@schematics/angular/utility/project';
+import { createDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
 import { Schema as ModuleOptions } from './schema';
+import { Schema as ContainerOptions } from '../container/schema';
+import { Schema as SandboxOptions } from '../sandbox/schema';
+import { RoutingScope } from '@schematics/angular/module/schema';
+import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
+function buildRelativeModulePath(options: ModuleOptions, modulePath: string): string {
+  const importModulePath = normalize(
+    `/${options.path}/` +
+      (options.flat ? '' : strings.dasherize(options.name) + '/') +
+      strings.dasherize(options.name) +
+      '.module'
+  );
+
+  return buildRelativePath(modulePath, importModulePath);
+}
 
 function addDeclarationToNgModule(options: ModuleOptions): Rule {
   return (host: Tree) => {
@@ -35,20 +60,11 @@ function addDeclarationToNgModule(options: ModuleOptions): Rule {
     if (text === null) {
       throw new SchematicsException(`File ${modulePath} does not exist.`);
     }
-    const sourceText = text.toString('utf-8');
+    const sourceText = text.toString();
     const source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
 
-    const importModulePath = normalize(
-      `/${options.path}/`
-      + (options.flat ? '' : strings.dasherize(options.name) + '/')
-      + strings.dasherize(options.name)
-      + '.module',
-    );
-    const relativePath = buildRelativePath(modulePath, importModulePath);
-    const changes = addImportToModule(source,
-                                      modulePath,
-                                      strings.classify(`${options.name}Module`),
-                                      relativePath);
+    const relativePath = buildRelativeModulePath(options, modulePath);
+    const changes = addImportToModule(source, modulePath, strings.classify(`${options.name}Module`), relativePath);
 
     const recorder = host.beginUpdate(modulePath);
     for (const change of changes) {
@@ -62,19 +78,87 @@ function addDeclarationToNgModule(options: ModuleOptions): Rule {
   };
 }
 
-export default function (options: ModuleOptions): Rule {
+function addRouteDeclarationToNgModule(options: ModuleOptions, routingModulePath: Path | undefined): Rule {
   return (host: Tree) => {
-    if (!options.project) {
-      throw new SchematicsException('Option (project) is required.');
+    if (!options.route) {
+      return host;
     }
-    const project = getProject(host, options.project);
+    if (!options.module) {
+      throw new Error('Module option required when creating a lazy loaded routing module.');
+    }
+
+    let path: string;
+    if (routingModulePath) {
+      path = routingModulePath;
+    } else {
+      path = options.module;
+    }
+
+    const text = host.read(path);
+    if (!text) {
+      throw new Error(`Couldn't find the module nor its routing module.`);
+    }
+
+    const sourceText = text.toString();
+    const addDeclaration = addRouteDeclarationToModule(
+      ts.createSourceFile(path, sourceText, ts.ScriptTarget.Latest, true),
+      path,
+      buildRoute(options, options.module)
+    ) as InsertChange;
+
+    const recorder = host.beginUpdate(path);
+    recorder.insertLeft(addDeclaration.pos, addDeclaration.toAdd);
+    host.commitUpdate(recorder);
+
+    return host;
+  };
+}
+
+function getRoutingModulePath(host: Tree, modulePath: string): Path | undefined {
+  const routingModulePath = modulePath.endsWith(ROUTING_MODULE_EXT)
+    ? modulePath
+    : modulePath.replace(MODULE_EXT, ROUTING_MODULE_EXT);
+
+  return host.exists(routingModulePath) ? normalize(routingModulePath) : undefined;
+}
+
+function buildRoute(options: ModuleOptions, modulePath: string) {
+  const relativeModulePath = buildRelativeModulePath(options, modulePath);
+  const moduleName = `${strings.classify(options.name)}Module`;
+  const loadChildren = `() => import('${relativeModulePath}').then(m => m.${moduleName})`;
+
+  return `{ path: '${options.route}', loadChildren: ${loadChildren} }`;
+}
+
+function buildSelector(options: ModuleOptions, projectPrefix: string) {
+  let selector = strings.dasherize(options.name);
+  if (options.prefix) {
+    selector = `${options.prefix}-${selector}`;
+  } else if (options.prefix === undefined && projectPrefix) {
+    selector = `${projectPrefix}-${selector}`;
+  }
+
+  return selector;
+}
+
+export default function(options: ModuleOptions): Rule {
+  return async (host: Tree) => {
+    const workspace = await getWorkspace(host);
+    const project = workspace.projects.get(options.project as string);
 
     if (options.path === undefined) {
-      options.path = buildDefaultPath(project);
+      options.path = await createDefaultPath(host, options.project as string);
     }
 
     if (options.module) {
       options.module = findModuleFromOptions(host, options);
+    }
+
+    let routingModulePath: Path | undefined;
+    const isLazyLoadedModuleGen = !!(options.route && options.module);
+    if (isLazyLoadedModuleGen) {
+      options.routingScope = RoutingScope.Child;
+      routingModulePath = getRoutingModulePath(host, options.module as string);
     }
 
     const parsedPath = parseName(options.path, options.name);
@@ -82,38 +166,40 @@ export default function (options: ModuleOptions): Rule {
     options.path = parsedPath.path;
 
     const templateSource = apply(url('./files'), [
-      options.routing ? noop() : filter(path => !path.endsWith('-routing.module.ts')),
-      options.spec ? noop() : filter(path => !path.endsWith('.spec.ts')),
-      options.sandbox ? noop() : filter(path => !path.endsWith('.sandbox.ts') && !path.endsWith('.sandbox.spec.ts')),
-      template({
+      options.routing || (isLazyLoadedModuleGen && routingModulePath)
+        ? noop()
+        : filter(path => !path.endsWith('-routing.module.ts.template')),
+      applyTemplates({
         ...strings,
-        'if-flat': (s: string) => options.flat ? '' : s,
-        'dot': '.',
-        ...options,
+        'if-flat': (s: string) => (options.flat ? '' : s),
+        lazyRoute: isLazyLoadedModuleGen,
+        lazyRouteWithoutRouteModule: isLazyLoadedModuleGen && !routingModulePath,
+        lazyRouteWithRouteModule: isLazyLoadedModuleGen && !!routingModulePath,
+        ...options
       }),
-      move(parsedPath.path),
+      move(parsedPath.path)
     ]);
+    const moduleDasherized = strings.dasherize(options.name);
+    const modulePath = `${!options.flat ? moduleDasherized + '/' : ''}${moduleDasherized}.module.ts`;
 
-    if(options.container){
-        return chain([
-            branchAndMerge(chain([
-                addDeclarationToNgModule(options),
-                mergeWith(templateSource),
-            ])),
-            schematic('container', {
-                path: `${options.path}/${options.name}/containers`,
-                name: options.name,
-                project: options.project,
-                skipImport: true
-            })
-        ])
-    }else {
-        return chain([
-            branchAndMerge(chain([
-                addDeclarationToNgModule(options),
-                mergeWith(templateSource),
-            ])),
-        ]);
-    }
-  }
+    const containerOptions: ContainerOptions = {
+      name: options.name,
+      selector: buildSelector(options, (project && project.prefix) || ''),
+      path: `${options.path}/${options.name}/containers`
+    };
+
+    const sandboxOptions: SandboxOptions = {
+      name: options.name,
+      path: `${options.path}/${options.name}/sandbox`
+    };
+
+    return chain([
+      !isLazyLoadedModuleGen ? addDeclarationToNgModule(options) : noop(),
+      addRouteDeclarationToNgModule(options, routingModulePath),
+      mergeWith(templateSource),
+      options.container || isLazyLoadedModuleGen ? schematic('container', containerOptions) : noop(),
+      options.sandbox ? schematic('sandbox', sandboxOptions) : noop(),
+      options.lintFix ? applyLintFix(options.path) : noop()
+    ]);
+  };
 }

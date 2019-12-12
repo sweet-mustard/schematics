@@ -1,0 +1,20 @@
+{
+  "extends": "<%= relativePathToWorkspaceRoot %>/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "<%= relativePathToWorkspaceRoot %>/out-tsc/spec",
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "files": [
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]<% if (enableIvy) { %>,
+  "angularCompilerOptions": {
+    "enableIvy": true
+  }<% } %>
+}
