@@ -4,12 +4,10 @@
     "outDir": "<%= relativePathToWorkspaceRoot %>/out-tsc/spec",
     "types": [
       "jest",
-      "jsdom"
       "node"
     ]
   },
   "files": [
-    "src/test.ts",
     "src/polyfills.ts"
   ],
   "include": [

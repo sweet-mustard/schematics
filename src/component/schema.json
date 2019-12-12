@@ -68,7 +68,7 @@
     "styleext": {
       "description": "The file extension to use for style files.",
       "type": "string",
-      "default": "css",
+      "default": "scss",
       "x-deprecated": "Use \"style\" instead."
     },
     "style": {

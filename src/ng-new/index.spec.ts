@@ -22,15 +22,16 @@ describe('Ng New Schematic', () => {
 
     const tree = await schematicRunner.runSchematicAsync('ng-new', options).toPromise();
     const files = tree.files;
-    expect(files).toContain([
-      '/bar/src/tsconfig.app.json',
-      '/bar/src/main.ts',
-      '/bar/src/app/app.module.ts',
-      '/bar/e2e/src/app.po.ts',
-      '/bar/e2e/src/app.e2e-spec.ts',
-      '/bar/e2e/tsconfig.json',
-      '/bar/e2e/protractor.conf.js'
-    ]);
+    expect(files).toEqual(
+      expect.arrayContaining([
+        '/bar/src/main.ts',
+        '/bar/src/app/app.module.ts',
+        '/bar/e2e/src/app.po.ts',
+        '/bar/e2e/src/app.e2e-spec.ts',
+        '/bar/e2e/tsconfig.json',
+        '/bar/e2e/protractor.conf.js'
+      ])
+    );
   });
 
   it('should should set the prefix in angular.json and in app.component.ts', async () => {
@@ -39,17 +40,6 @@ describe('Ng New Schematic', () => {
     const tree = await schematicRunner.runSchematicAsync('ng-new', options).toPromise();
     const content = tree.readContent('/bar/angular.json');
     expect(content).toMatch(/"prefix": "pre"/);
-  });
-
-  it('should set up the app module', async () => {
-    const options: NgNewOptions = {
-      name: 'foo',
-      version: '6.0.0'
-    };
-
-    const tree = await schematicRunner.runSchematicAsync('ng-new', options).toPromise();
-    const moduleContent = tree.readContent('/foo/src/app/app.module.ts');
-    expect(moduleContent).toMatch(/declarations:\s*\[\s*RootContainer\s*\]/m);
   });
 
   it('createApplication=false should create an empty workspace', async () => {

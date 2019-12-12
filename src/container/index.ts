@@ -1,7 +1,7 @@
-import {strings} from '@angular-devkit/core';
+import { strings } from '@angular-devkit/core';
 import {
   apply,
-  branchAndMerge,
+  applyTemplates,
   chain,
   filter,
   mergeWith,
@@ -9,25 +9,23 @@ import {
   noop,
   Rule,
   SchematicsException,
-  template,
   Tree,
-  url,
-  applyTemplates
+  url
 } from '@angular-devkit/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
-import {InsertChange} from '@schematics/angular/utility/change';
-import {buildRelativePath, findModuleFromOptions} from '@schematics/angular/utility/find-module';
-import {parseName} from '@schematics/angular/utility/parse-name';
-import {validateHtmlSelector, validateName} from '@schematics/angular/utility/validation';
-import {Schema as ContainerOptions} from './schema';
+import { InsertChange } from '@schematics/angular/utility/change';
+import { buildRelativePath, findModuleFromOptions } from '@schematics/angular/utility/find-module';
+import { parseName } from '@schematics/angular/utility/parse-name';
+import { validateHtmlSelector, validateName } from '@schematics/angular/utility/validation';
+import { Schema as ContainerOptions } from './schema';
 import {
   addDeclarationToModule,
   addEntryComponentToModule,
   addExportToModule
-} from "@schematics/angular/utility/ast-utils";
-import {buildDefaultPath, getWorkspace} from "@schematics/angular/utility/workspace";
-import {Style} from "@schematics/angular/component/schema";
-import {applyLintFix} from "@schematics/angular/utility/lint-fix";
+} from '@schematics/angular/utility/ast-utils';
+import { buildDefaultPath, getWorkspace } from '@schematics/angular/utility/workspace';
+import { Style } from '@schematics/angular/component/schema';
+import { applyLintFix } from '@schematics/angular/utility/lint-fix';
 
 function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
   const text = host.read(modulePath);
@@ -132,19 +130,17 @@ export default function(options: ContainerOptions): Rule {
     const parsedPath = parseName(options.path as string, options.name);
     options.name = parsedPath.name;
     options.path = parsedPath.path;
-    options.selector = options.selector || buildSelector(options, project && project.prefix || '');
+    options.selector = options.selector || buildSelector(options, (project && project.prefix) || '');
 
-    options.style = (
-        options.style && options.style !== Style.Css
-            ? options.style : options.styleext as Style
-    ) || Style.Css;
+    options.style =
+      (options.style && options.style !== Style.Scss ? options.style : (options.styleext as Style)) || Style.Scss;
     options.skipTests = options.skipTests || !options.spec;
 
     validateName(options.name);
     validateHtmlSelector(options.selector);
 
     const templateSource = apply(url('./files'), [
-      options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')): noop(),
+      options.skipTests ? filter(path => !path.endsWith('.spec.ts.template')) : noop(),
       options.inlineStyle ? filter(path => !path.endsWith('.__style__.template')) : noop(),
       options.inlineTemplate ? filter(path => !path.endsWith('.html.template')) : noop(),
       applyTemplates({
@@ -155,6 +151,10 @@ export default function(options: ContainerOptions): Rule {
       move(parsedPath.path)
     ]);
 
-    return chain(([addDeclarationToNgModule(options), mergeWith(templateSource), options.lintFix ? applyLintFix(options.path): noop()]));
+    return chain([
+      addDeclarationToNgModule(options),
+      mergeWith(templateSource),
+      options.lintFix ? applyLintFix(options.path) : noop()
+    ]);
   };
 }

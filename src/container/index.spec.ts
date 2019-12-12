@@ -3,7 +3,7 @@ import { Schema as ApplicationOptions } from '../application/schema';
 import { createAppModule } from '@schematics/angular/utility/test';
 import { Schema as WorkspaceOptions } from '../workspace/schema';
 import { Schema as ContainerOptions } from './schema';
-import {ChangeDetection, Style} from "@schematics/angular/component/schema";
+import { ChangeDetection, Style } from '@schematics/angular/component/schema';
 
 describe('Container Schematic', () => {
   const schematicRunner = new SchematicTestRunner('@sweet-mustard/schematics', require.resolve('../collection.json'));
@@ -13,7 +13,7 @@ describe('Container Schematic', () => {
     inlineStyle: false,
     inlineTemplate: false,
     changeDetection: ChangeDetection.Default,
-    style: Style.Css,
+    style: Style.Scss,
     skipTests: false,
     module: undefined,
     export: false,
@@ -45,12 +45,14 @@ describe('Container Schematic', () => {
     const options = { ...defaultOptions };
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
-    expect(files).toContain([
-      '/projects/bar/src/app/foo/foo.container.html',
-      '/projects/bar/src/app/foo/foo.container.scss',
-      '/projects/bar/src/app/foo/foo.container.spec.ts',
-      '/projects/bar/src/app/foo/foo.container.ts'
-    ]);
+    expect(files).toEqual(
+      expect.arrayContaining([
+        '/projects/bar/src/app/foo/foo.container.html',
+        '/projects/bar/src/app/foo/foo.container.scss',
+        '/projects/bar/src/app/foo/foo.container.spec.ts',
+        '/projects/bar/src/app/foo/foo.container.ts'
+      ])
+    );
     const moduleContent = tree.readContent('/projects/bar/src/app/app.module.ts');
     expect(moduleContent).toMatch(/import.*Foo.*from '.\/foo\/foo.container'/);
     expect(moduleContent).toMatch(/declarations:\s*\[[^\]]+?,\r?\n\s+FooContainer\r?\n/m);
@@ -93,20 +95,22 @@ describe('Container Schematic', () => {
 
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
-    expect(files).toContain([
-      '/projects/bar/src/app/foo.container.scss',
-      '/projects/bar/src/app/foo.container.html',
-      '/projects/bar/src/app/foo.container.spec.ts',
-      '/projects/bar/src/app/foo.container.ts'
-    ]);
+    expect(files).toEqual(
+      expect.arrayContaining([
+        '/projects/bar/src/app/foo.container.scss',
+        '/projects/bar/src/app/foo.container.html',
+        '/projects/bar/src/app/foo.container.spec.ts',
+        '/projects/bar/src/app/foo.container.ts'
+      ])
+    );
   });
 
   it('should find the closest module', async () => {
     const options = { ...defaultOptions };
     const fooModule = '/projects/bar/src/app/foo/foo.module.ts';
     appTree.create(
-        fooModule,
-        `
+      fooModule,
+      `
       import { NgModule } from '@angular/core';
       @NgModule({
         imports: [],
@@ -164,13 +168,13 @@ describe('Container Schematic', () => {
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     let files = tree.files;
     let root = `/${pathOption}/foo/foo.container`;
-    expect(files).toContain([`${root}.scss`, `${root}.html`, `${root}.spec.ts`, `${root}.ts`]);
+    expect(files).toEqual(expect.arrayContaining([`${root}.scss`, `${root}.html`, `${root}.spec.ts`, `${root}.ts`]));
 
     const options2 = { ...options, name: 'BAR' };
     const tree2 = await schematicRunner.runSchematicAsync('container', options2, tree).toPromise();
     files = tree2.files;
     root = `/${pathOption}/bar/bar.container`;
-    expect(files).toContain([`${root}.scss`, `${root}.html`, `${root}.spec.ts`, `${root}.ts`]);
+    expect(files).toEqual(expect.arrayContaining([`${root}.scss`, `${root}.html`, `${root}.spec.ts`, `${root}.ts`]));
   });
 
   it('should create a container in a sub-directory', async () => {
@@ -179,7 +183,7 @@ describe('Container Schematic', () => {
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
     const root = `/${options.path}/foo/foo.container`;
-    expect(files).toContain([`${root}.scss`, `${root}.html`, `${root}.spec.ts`, `${root}.ts`]);
+    expect(files).toEqual(expect.arrayContaining([`${root}.scss`, `${root}.html`, `${root}.spec.ts`, `${root}.ts`]));
   });
 
   it('should use the prefix', async () => {
@@ -212,7 +216,7 @@ describe('Container Schematic', () => {
     const content = tree.readContent('/projects/bar/src/app/foo/foo.container.ts');
     expect(content).toMatch(/template: /);
     expect(content).not.toMatch(/templateUrl: /);
-    expect(tree.files).not.toContain('/projects/bar/src/app/foo/foo.container.html');
+    expect(tree.files).not.toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.html']));
   });
 
   it('should respect the inlineStyle option', async () => {
@@ -221,7 +225,7 @@ describe('Container Schematic', () => {
     const content = tree.readContent('/projects/bar/src/app/foo/foo.container.ts');
     expect(content).toMatch(/styles: \[/);
     expect(content).not.toMatch(/styleUrls: /);
-    expect(tree.files).not.toContain('/projects/bar/src/app/foo/foo.container.scss');
+    expect(tree.files).not.toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.scss']));
   });
 
   it('should respect the style option', async () => {
@@ -229,8 +233,8 @@ describe('Container Schematic', () => {
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const content = tree.readContent('/projects/bar/src/app/foo/foo.container.ts');
     expect(content).toMatch(/styleUrls: \['.\/foo.container.sass/);
-    expect(tree.files).toContain('/projects/bar/src/app/foo/foo.container.sass');
-    expect(tree.files).not.toContain('/projects/bar/src/app/foo/foo.container.scss');
+    expect(tree.files).toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.sass']));
+    expect(tree.files).not.toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.scss']));
   });
 
   it('should use the module flag even if the module is a routing module', async () => {
@@ -248,22 +252,20 @@ describe('Container Schematic', () => {
 
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const content = tree.readContent('/projects/bar/src/app/app.module.ts');
-    expect(content).toMatch(
-        /import { TestComponentContainer } from '\.\/dir\/test-container\/test-container.container'/
-    );
+    expect(content).toMatch(`import { TestContainerContainer } from './dir/test-container/test-container.container`);
   });
 
   it('should handle a path in the name and module options', async () => {
     appTree = await schematicRunner
-        .runSchematicAsync('module', { name: 'admin/module', project: 'bar' }, appTree)
-        .toPromise();
+      .runSchematicAsync('module', { name: 'admin/module', project: 'bar' }, appTree)
+      .toPromise();
 
-    const options = { ...defaultOptions, name: 'other/test-container', module: 'admin/module' };
+    const options = { ...defaultOptions, name: 'other/test-container', module: 'admin/module', skipImport: false };
     appTree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
 
     const content = appTree.readContent('/projects/bar/src/app/admin/module/module.module.ts');
     expect(content).toMatch(
-        /import { TestContainerContainer } from '..\/..\/other\/test-container\/test-container.container'/
+      /import { TestContainerContainer } from '..\/..\/other\/test-container\/test-container.container'/
     );
   });
 
@@ -292,7 +294,7 @@ describe('Container Schematic', () => {
     // move the module
     appTree.rename('/projects/bar/src/app/app.module.ts', '/projects/bar/custom/app/app.module.ts');
     appTree = await schematicRunner.runSchematicAsync('container', defaultOptions, appTree).toPromise();
-    expect(appTree.files).toContain('/projects/bar/custom/app/foo/foo.container.ts');
+    expect(appTree.files).toEqual(expect.arrayContaining(['/projects/bar/custom/app/foo/foo.container.ts']));
   });
 
   // testing deprecating options don't cause conflicts
@@ -300,27 +302,27 @@ describe('Container Schematic', () => {
     const options = { ...defaultOptions, style: undefined, styleext: 'scss' };
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
-    expect(files).toContain('/projects/bar/src/app/foo/foo.container.scss');
+    expect(files).toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.scss']));
   });
 
   it('should respect the deprecated styleext (css) option', async () => {
     const options = { ...defaultOptions, style: undefined, styleext: 'css' };
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
-    expect(files).toContain('/projects/bar/src/app/foo/foo.container.css');
+    expect(files).toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.css']));
   });
 
   it('should respect the deprecated spec option when false', async () => {
     const options = { ...defaultOptions, skipTests: undefined, spec: false };
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
-    expect(files).not.toContain('/projects/bar/src/app/foo/foo.container.spec.ts');
+    expect(files).not.toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.spec.ts']));
   });
 
   it('should respect the deprecated spec option when true', async () => {
     const options = { ...defaultOptions, skipTests: false, spec: true };
     const tree = await schematicRunner.runSchematicAsync('container', options, appTree).toPromise();
     const files = tree.files;
-    expect(files).toContain('/projects/bar/src/app/foo/foo.container.spec.ts');
+    expect(files).toEqual(expect.arrayContaining(['/projects/bar/src/app/foo/foo.container.spec.ts']));
   });
 });

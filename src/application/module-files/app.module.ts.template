@@ -8,7 +8,7 @@ import { RootContainer } from './containers/root/root.container';
   declarations: [
     RootContainer
   ],
-  imports: [<% if (!experimentalIvy) { %>
+  imports: [<% if (!enableIvy) { %>
     BrowserModule<% if (routing) { %>,
     AppRoutingModule<% } %>
   <% } %>],

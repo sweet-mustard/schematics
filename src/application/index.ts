@@ -13,23 +13,22 @@ import {
   schematic,
   SchematicContext,
   SchematicsException,
-  template,
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { Schema as E2eOptions } from '../e2e/schema';
 import { getWorkspace, updateWorkspace } from '@schematics/angular/utility/workspace';
 import { addPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { latestVersions } from '@schematics/angular/utility/latest-versions';
 import { validateProjectName } from '@schematics/angular/utility/validation';
-import { Builders, ProjectType, WorkspaceProject } from '@schematics/angular/utility/workspace-models';
-import { Schema as ApplicationOptions } from './schema';
+import { Builders, ProjectType } from '@schematics/angular/utility/workspace-models';
+import { Schema as ApplicationOptions, E2EOptions } from './schema';
 import { Schema as ComponentOptions } from '../component/schema';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { Style } from '@schematics/angular/application/schema';
 import { relativePathToWorkspaceRoot } from '@schematics/angular/utility/paths';
 import { findPropertyInAstObject, insertPropertyInAstObjectInOrder } from '@schematics/angular/utility/json-utils';
 import { applyLintFix } from '@schematics/angular/utility/lint-fix';
+import { WorkspaceProject } from './workspace-project';
 
 function addDependenciesToPackageJson(options: ApplicationOptions) {
   return (host: Tree, context: SchematicContext) => {
@@ -225,15 +224,9 @@ function addAppToWorkspaceFile(options: ApplicationOptions, appDir: string): Rul
         }
       },
       test: {
-        builder: Builders.Karma,
+        builder: '@angular-builders/jest:run',
         options: {
-          main: `${sourceRoot}/test.ts`,
-          polyfills: `${sourceRoot}/polyfills.ts`,
-          tsConfig: `${projectRoot}tsconfig.spec.json`,
-          karmaConfig: `${projectRoot}karma.conf.js`,
-          assets: [`${sourceRoot}/favicon.ico`, `${sourceRoot}/assets`],
-          styles: [`${sourceRoot}/styles/app.scss`],
-          scripts: []
+          configPath: './jest.config.js'
         }
       },
       lint: {
@@ -280,14 +273,9 @@ export default function(options: ApplicationOptions): Rule {
     let sourceRoot = `${appDir}/src`;
     let sourceDir = `${appDir}/src/app`;
 
-    const e2eOptions: E2eOptions = {
+    const e2eOptions: E2EOptions = {
       relatedAppName: options.name,
       rootSelector: appRootSelector
-    };
-
-    const jestOptions = {
-      relatedAppName: options.name,
-      projectRoot: 'jest'
     };
 
     return chain([
@@ -316,7 +304,19 @@ export default function(options: ApplicationOptions): Rule {
         path: sourceDir,
         project: options.name
       }),
-      mergeWith(apply(url('./module-files'), [applyTemplates(options), move(appDir)]), MergeStrategy.Overwrite),
+      mergeWith(
+        apply(url('./module-files'), [
+          applyTemplates({
+            utils: strings,
+            ...options,
+            relativePathToWorkspaceRoot: relativePathToWorkspaceRoot(appDir),
+            appName: options.name,
+            isRootApp
+          }),
+          move(sourceDir)
+        ]),
+        MergeStrategy.Overwrite
+      ),
       schematic('container', {
         name: 'root',
         selector: appRootSelector,
@@ -340,11 +340,11 @@ export default function(options: ApplicationOptions): Rule {
         ]),
         MergeStrategy.Overwrite
       ),
-      schematic('e2e', e2eOptions),
-      schematic('jest', jestOptions),
+      externalSchematic('@schematics/angular', 'e2e', e2eOptions),
       schematic('module', {
         name: options.moduleName ? options.moduleName : options.name,
         path: `${sourceRoot}/modules`,
+        prefix: options.prefix,
         project: options.name
       }),
       options.skipPackageJson ? noop() : addDependenciesToPackageJson(options),

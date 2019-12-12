@@ -14,10 +14,13 @@
     "@types/node": "^12.7.12"
   },
   "devDependencies": {
-    "@bazel/bazel": "^0.29.0",
-    "@bazel/typescript": "^0.37.1",
-    "@schematics/angular": "^8.3.9",
+    "@angular-devkit/core": "^8.3.20",
+    "@angular-devkit/schematics": "^8.3.20",
+    "@bazel/bazel": "^1.2.0",
+    "@bazel/typescript": "^0.42.2",
+    "@schematics/angular": "^8.3.20",
     "jest": "^24.8.0",
+    "prettier": "^1.19.1",
     "ts-jest": "^24.1.0",
     "typescript": "^3.5.3"
   },

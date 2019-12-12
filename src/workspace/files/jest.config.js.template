@@ -1,6 +1,4 @@
 module.exports = {
-    preset: "jest-preset-angular",
-    setupTestFrameworkScriptFile: "<rootDir>/jest/setupJest.ts",
     coverageReporters: [
         "lcov"
     ],

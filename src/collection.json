@@ -48,12 +48,6 @@
       "schema": "./workspace/schema.json",
       "description": "Create an Angular workspace.",
       "hidden": true
-    },
-    "e2e": {
-      "factory": "./e2e",
-      "schema": "./e2e/schema.json",
-      "description": "Create an Angular e2e application.",
-      "hidden": true
     }
   }
 }
