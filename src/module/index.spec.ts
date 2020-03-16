@@ -51,8 +51,6 @@ describe('Module Schematic', () => {
   it('should import into another module', async () => {
     const options = { ...defaultOptions, module: 'app.module.ts' };
 
-    console.log(appTree.files);
-
     const tree = await schematicRunner.runSchematicAsync('module', options, appTree).toPromise();
     const content = tree.readContent('/projects/bar/src/app/app.module.ts');
     expect(content).toMatch(/import { FooModule } from '.\/foo\/foo.module'/);

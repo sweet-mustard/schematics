@@ -10,18 +10,18 @@
     "publish": "yarn run test-ci && bazel run src:npm_package.publish"
   },
   "dependencies": {
-    "@types/jest": "^24.0.19",
+    "@types/jest": "^25.1.4",
     "@types/node": "^12.7.12"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^8.3.20",
-    "@angular-devkit/schematics": "^8.3.20",
+    "@angular-devkit/core": "8.3.25",
+    "@angular-devkit/schematics": "8.3.25",
     "@bazel/bazel": "^1.2.0",
     "@bazel/typescript": "^0.42.2",
-    "@schematics/angular": "^8.3.20",
-    "jest": "^24.8.0",
+    "@schematics/angular": "8.3.25",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^25.2.1",
     "typescript": "^3.5.3"
   },
   "repository": {
