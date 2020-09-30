@@ -1,7 +1,6 @@
 export interface Schema {
   directory?: string;
   name: string;
-  enableIvy?: boolean;
   skipInstall?: boolean;
   linkCli?: boolean;
   skipGit?: boolean;
@@ -17,6 +16,8 @@ export interface Schema {
   skipTests?: boolean;
   experimentalIvy?: boolean;
   createApplication?: boolean;
+  strict?: boolean;
+  packageManager: string;
   moduleName?: string;
 }
 
