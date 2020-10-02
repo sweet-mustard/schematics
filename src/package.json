@@ -17,8 +17,8 @@
   "homepage": "https://github.com/sweet-mustard/schematics",
   "schematics": "./collection.json",
   "dependencies": {
-    "@schematics/angular": "^8.3.20",
-    "@angular-devkit/core": "^8.3.20",
-    "@angular-devkit/schematics": "8.3.20"
+    "@schematics/angular": "^9.1.12",
+    "@angular-devkit/core": "^9.1.12",
+    "@angular-devkit/schematics": "9.1.12"
   }
 }
