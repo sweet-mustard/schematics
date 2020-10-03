@@ -163,10 +163,10 @@
   resolved "https://registry.yarnpkg.com/@bazel/bazelisk/-/bazelisk-1.6.1.tgz#f9e279d2fecaf6cec6ed676bc8714846f3704e40"
   integrity sha512-2JpfZb6eYCGrdLdUJamncIpI4pgEAhPURYGg+rCgqoZDJxzADuOnpf/00dEBXPM2XByXNXTqsKEFN2gTaZz2mA==
 
-"@bazel/typescript@^1.3.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-1.7.0.tgz#8dc02b8a161f4fff3285186066b5f73666793452"
-  integrity sha512-M6JPXJZ+W6457QZfPHmGg/Mejnp7//YTnffGmnmeK9vDqybXeCCRWW1/iEOwopLJYQViBHfaoulde0VXelx9sA==
+"@bazel/typescript@^0.42.2":
+  version "0.42.3"
+  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.42.3.tgz#224d44bb32aa7b36908e01b2c58f68a0d22fe5b1"
+  integrity sha512-6cnB50Zu6avGZbBruV51YNLrYtze+bWocnK49tdCkvu9qNTUISZpKgzpOwXUFj81zjNp9ffStWR1qPasTAJDxw==
   dependencies:
     protobufjs "6.8.8"
     semver "5.6.0"
@@ -2323,13 +2323,6 @@ lodash@^4.17.13, lodash@^4.17.15:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-
-log-symbols@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
-  integrity sha512-dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==
-  dependencies:
-    chalk "^2.4.2"
 
 log-symbols@^3.0.0:
   version "3.0.0"

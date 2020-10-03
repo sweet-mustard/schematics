@@ -23,11 +23,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+          registry-url: 'https://registry.npmjs.org'
       - run: npm install -g yarn
       - name: Install dependencies
         run: yarn install
       - name: Set version
-        run: npm --no-git-tag-version version {{ steps.gitversion.outputs.semVer }}
+        run: npm --no-git-tag-version version ${{ steps.gitversion.outputs.semVer }}
       - name: Test & Build
         run: yarn pack
       - name: Publish
