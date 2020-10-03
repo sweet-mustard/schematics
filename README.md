@@ -26,7 +26,6 @@ After that, you are ready to contribute.
 
 ### Testing your modifications
 
-1. *Install* dependencies globally: `npm install -g @angular-devkit/core @angular-devkit/schematics @schematics/angular typescript`
-2. *Build* your schematic local: `npm run build`
-3. *Link* your *local build*: `npm install -g sweet-mustard-schematics-${version}.tgz`
-4. *Build* a new *project* (see step 1 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
+1. *Build* your schematic local: `npm run build`
+2. *Link* your *local build*: `npm install -g sweet-mustard-schematics-${version}.tgz`
+3. *Build* a new *project* (see step 1 of 'how to use') and/or *link* the *schematics* to your demo project: `npm link @sweet-mustard/schematics`
