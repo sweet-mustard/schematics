@@ -17,7 +17,7 @@ export interface Schema {
   experimentalIvy?: boolean;
   createApplication?: boolean;
   strict?: boolean;
-  packageManager: string;
+  packageManager?: string;
   moduleName?: string;
 }
 
