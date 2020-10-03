@@ -28,6 +28,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Set version
+        working-directory: ./src
         run: npm --no-git-tag-version version ${{ steps.gitversion.outputs.semVer }}
       - name: Test & Build
         run: yarn pack
