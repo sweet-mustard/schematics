@@ -5,24 +5,24 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --watch",
-    "test-ci": "jest --coverage --bail",
+    "test-ci": "jest --coverage --no-cache --bail",
     "pack": "yarn run test-ci && bazel run src:npm_package.pack",
-    "publish": "yarn run test-ci && bazel run src:npm_package.publish"
+    "publish": "bazel run src:npm_package.publish"
   },
   "dependencies": {
     "@types/jest": "^25.1.4",
     "@types/node": "^12.7.12"
   },
   "devDependencies": {
-    "@angular-devkit/core": "8.3.25",
-    "@angular-devkit/schematics": "8.3.25",
-    "@bazel/bazel": "^1.2.0",
+    "@angular-devkit/core": "9.1.12",
+    "@angular-devkit/schematics": "9.1.12",
+    "@bazel/bazelisk": "1.6.1",
     "@bazel/typescript": "^0.42.2",
-    "@schematics/angular": "8.3.25",
+    "@schematics/angular": "9.1.12",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.8.3"
   },
   "repository": {
     "type": "git",

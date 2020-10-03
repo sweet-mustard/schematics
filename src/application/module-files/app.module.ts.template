@@ -8,10 +8,10 @@ import { RootContainer } from './containers/root/root.container';
   declarations: [
     RootContainer
   ],
-  imports: [<% if (!enableIvy) { %>
+  imports: [
     BrowserModule<% if (routing) { %>,
     AppRoutingModule<% } %>
-  <% } %>],
+  ],
   providers: [],
   bootstrap: [RootContainer]
 })

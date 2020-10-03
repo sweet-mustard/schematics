@@ -18,11 +18,6 @@
       },
       "x-prompt": "What name would you like to use for the application?"
     },
-    "enableIvy": {
-      "description": "**EXPERIMENTAL** True to create a new app that uses the Ivy rendering engine.",
-      "type": "boolean",
-      "default": false
-    },
     "inlineStyle": {
       "description": "When true, includes styles inline in the root component.ts file. Only CSS styles can be included inline. Default is false, meaning that an external styles file is created and referenced in the root component.ts file.",
       "type": "boolean",
@@ -77,7 +72,7 @@
     "lintFix": {
       "type": "boolean",
       "default": false,
-      "description": "When true, applies lint fixes after generating the application.",
+      "description": "When true, applies lint fixes after generating the application."
     },
     "moduleName": {
       "type": "string",

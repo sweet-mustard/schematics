@@ -32,12 +32,13 @@ export default function(options: NgNewOptions): Rule {
   const workspaceOptions: WorkspaceOptions = {
     name: options.name,
     version: options.version,
-    newProjectRoot: options.newProjectRoot || 'projects'
+    newProjectRoot: options.newProjectRoot || 'projects',
+    strict: options.strict,
+    packageManager: options.packageManager
   };
   const applicationOptions: ApplicationOptions = {
     projectRoot: '',
     name: options.name,
-    enableIvy: options.enableIvy,
     inlineStyle: options.inlineStyle,
     inlineTemplate: options.inlineTemplate,
     prefix: options.prefix,
@@ -61,7 +62,12 @@ export default function(options: NgNewOptions): Rule {
     (_host: Tree, context: SchematicContext) => {
       let packageTask;
       if (!options.skipInstall) {
-        packageTask = context.addTask(new NodePackageInstallTask(options.directory));
+        packageTask = context.addTask(
+          new NodePackageInstallTask({
+            workingDirectory: options.directory,
+            packageManager: options.packageManager
+          })
+        );
         if (options.linkCli) {
           packageTask = context.addTask(new NodePackageLinkTask('@angular/cli', options.directory), [packageTask]);
         }

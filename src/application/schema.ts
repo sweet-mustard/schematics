@@ -1,7 +1,6 @@
 export interface Schema {
   projectRoot?: string;
   name: string;
-  enableIvy?: boolean;
   inlineStyle?: boolean;
   inlineTemplate?: boolean;
   viewEncapsulation?: string;
