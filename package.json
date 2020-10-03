@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --watch",
-    "test-ci": "jest --coverage --bail",
+    "test-ci": "jest --coverage --no-cache --bail",
     "pack": "yarn run test-ci && bazel run src:npm_package.pack",
-    "publish": "yarn run test-ci && bazel run src:npm_package.publish"
+    "publish": "bazel run src:npm_package.publish"
   },
   "dependencies": {
     "@types/jest": "^25.1.4",
